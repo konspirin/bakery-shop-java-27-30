@@ -12,7 +12,7 @@ const ErrorPage = () => {
     }, []);
     return (
         <h2>
-            OOOPS! Something went wrong!!! 404 not found
+            OOOPS! Something went wrong!!! 404 not found!!!
         </h2>
     );
 };

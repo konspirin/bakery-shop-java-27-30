@@ -14,6 +14,8 @@ import {navItems, productItems} from "./configurations/nav-config.ts";
 import ErrorPage from "./components/servicePages/ErrorPage.tsx";
 import {useEffect} from "react";
 import NavigatorDeskTop from "./components/navigation/NavigatorDeskTop.tsx";
+import Login from "./components/servicePages/Login.tsx";
+import Logout from "./components/servicePages/Logout.tsx";
 
 function App() {
     const location = useLocation();
@@ -40,6 +42,8 @@ function App() {
                     <Route path={Paths.DAIRY} element={<Dairy/>}/>
                     <Route path={Paths.BACK} element={<Navigate to={Paths.HOME}/>}/>
                 </Route>
+                <Route path={Paths.LOGIN} element={<Login/>}/>
+                <Route path={Paths.LOGOUT} element={<Logout/>}/>
             </Route>
             <Route path={'*'} element={<ErrorPage/>}/>
         </Routes>

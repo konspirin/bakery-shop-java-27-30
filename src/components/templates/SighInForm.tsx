@@ -68,7 +68,7 @@ export default function SignInForm(props: Props) {
             password: data.get('password') as string,
         });
     };
-
+//==================Validation===============================
     const validateInputs = () => {
         const email = document.getElementById('email') as HTMLInputElement;
         const password = document.getElementById('password') as HTMLInputElement;
@@ -95,10 +95,8 @@ export default function SignInForm(props: Props) {
 
         return isValid;
     };
-
+//========================================================
     return (
-
-
         <SignInContainer direction="column" justifyContent="space-between">
             <Card variant="outlined">
                 <SitemarkIcon/>
@@ -180,7 +178,7 @@ export default function SignInForm(props: Props) {
                     <Typography sx={{textAlign: 'center'}}>
                         Don&apos;t have an account?{' '}
                         <Link
-                            href="/material-ui/getting-started/templates/sign-in/"
+                            href="#"
                             variant="body2"
                             sx={{alignSelf: 'center'}}
                         >

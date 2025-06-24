@@ -1,7 +1,7 @@
 import {Paths} from "./paths.ts";
 
 export enum Roles{
-    ALL, USER, ADMIN, NO_AUTH
+    ALL, USER, ADMIN, NO_AUTH, NO_ADMIN
 }
 export type RouteType = {
     path: Paths,

@@ -1,14 +1,29 @@
 import SignUpForm from "../templates/SignUpForm.tsx";
-import type {SignupData} from "../../utils/shop-types.ts";
+import type {LoginData, SignupData} from "../../utils/shop-types.ts";
+import {registerWithEmailAndPassword} from "../../firebase/firebaseAuthService.ts";
+import {useNavigate} from "react-router-dom";
 
 
 const Registration = () => {
-    const signUpSubmit = (data:SignupData) => {
-        console.log(JSON.stringify(data))
+    const navigate = useNavigate();
+    // const signUpSubmit = (data:SignupData) => {
+    //     console.log(JSON.stringify(data))
+    // }
+    const signUpWithEmail = async (data: SignupData) => {
+        const userEmailPass:LoginData = {
+            email: data.email,
+            password:data.password
+        }
+        try{
+            await registerWithEmailAndPassword(userEmailPass);
+            navigate('/login')
+        }catch (e) {
+            console.log(e)
+        }
     }
     return (
         <div>
-            <SignUpForm submitFunc={signUpSubmit}/>
+            <SignUpForm submitFunc={signUpWithEmail}/>
             </div>
     );
 };

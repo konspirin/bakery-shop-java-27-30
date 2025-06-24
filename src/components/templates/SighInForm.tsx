@@ -15,7 +15,7 @@ import {styled} from '@mui/material/styles';
 import {GoogleIcon, SitemarkIcon} from './CustomIcons';
 import type {LoginData} from "../../utils/shop-types.ts";
 
-const Card = styled(MuiCard)(({theme}) => ({
+export const Card = styled(MuiCard)(({theme}) => ({
     display: 'flex',
     flexDirection: 'column',
     alignSelf: 'center',
@@ -28,7 +28,7 @@ const Card = styled(MuiCard)(({theme}) => ({
     },
 }));
 
-const SignInContainer = styled(Stack)(({theme}) => ({
+export const SignInContainer = styled(Stack)(({theme}) => ({
     height: 'calc((1 - var(--template-frame-height, 0)) * 100dvh)',
     minHeight: '100%',
     padding: theme.spacing(2),
@@ -178,7 +178,7 @@ export default function SignInForm(props: Props) {
                     <Typography sx={{textAlign: 'center'}}>
                         Don&apos;t have an account?{' '}
                         <Link
-                            href="#"
+                            href="/register"
                             variant="body2"
                             sx={{alignSelf: 'center'}}
                         >

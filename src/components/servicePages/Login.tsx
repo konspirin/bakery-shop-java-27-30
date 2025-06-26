@@ -17,8 +17,8 @@ const Login = () => {
     // }
     const loginWithFirebase = async (loginData:LoginData) => {
         try{
-            const email = await login(loginData);
-            dispatch(loginAction(email));
+            const user = await login(loginData);
+            dispatch(loginAction(user));
             navigate('/');
         }catch (e) {
             console.log(e) //Todo

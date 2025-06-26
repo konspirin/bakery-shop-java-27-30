@@ -1,6 +1,6 @@
 import SignUpForm from "../templates/SignUpForm.tsx";
 import type {LoginData, SignupData} from "../../utils/shop-types.ts";
-import {registerWithEmailAndPassword} from "../../firebase/firebaseAuthService.ts";
+import {registerWithEmailAndPassword, updateUserProfile} from "../../firebase/firebaseAuthService.ts";
 import {useNavigate} from "react-router-dom";
 
 
@@ -16,6 +16,7 @@ const Registration = () => {
         }
         try{
             await registerWithEmailAndPassword(userEmailPass);
+            await updateUserProfile(data)
             navigate('/login')
         }catch (e) {
             console.log(e)

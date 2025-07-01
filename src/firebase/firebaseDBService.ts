@@ -1,9 +1,9 @@
 
 import {doc, collection, getDoc, setDoc, deleteDoc, getCountFromServer} from 'firebase/firestore';
-import {db} from "../configurations/firebase-config.ts";
-import type {Category, ProductType} from "../utils/shop-types.ts";
-import {getRandomNumber} from "../utils/tools.ts";
-import productConfig from '../configurations/products-config.json'
+import {db} from "../configurations/firebase-config";
+import type {Category, ProductType} from "../utils/shop-types";
+import {getRandomNumber} from "../utils/tools";
+import productConfig from '../configurations/products-config.json';
 
 const prodColl = collection(db, "product_collection");
 const categoryColl = collection(db, "category_collection");

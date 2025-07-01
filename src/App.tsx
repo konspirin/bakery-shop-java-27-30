@@ -16,17 +16,26 @@ import {useEffect} from "react";
 import NavigatorDeskTop from "./components/navigation/NavigatorDeskTop.tsx";
 import Login from "./components/servicePages/Login.tsx";
 import Logout from "./components/servicePages/Logout.tsx";
-import {Roles, type RouteType} from "./utils/shop-types.ts";
-import {useAppSelector} from "./redux/hooks.ts";
+import {ProductType, Roles, type RouteType} from "./utils/shop-types.ts";
+import {useAppDispatch, useAppSelector} from "./redux/hooks.ts";
 import Registration from "./components/servicePages/Registration.tsx";
+import {getProducts} from "./firebase/firebaseDBService.ts";
+import {prodsUpd} from "./redux/slices/productSlice.ts";
 
 function App() {
     const location = useLocation();
     const navigate = useNavigate();
+    const dispatch  = useAppDispatch();
     const {authUser} = useAppSelector(state => state.auth)
     useEffect(() => {
         if(location.pathname === `/${Paths.ERROR}`)
             navigate('/')
+    }, []);
+    useEffect(() => {
+        const subscrition = getProducts().subscribe({
+            next: (prods: ProductType[]) => {dispatch(prodsUpd(prods))}
+        })
+        return () => {subscrition.unsubscribe()}
     }, []);
 
     const predicate = (item:RouteType) => {

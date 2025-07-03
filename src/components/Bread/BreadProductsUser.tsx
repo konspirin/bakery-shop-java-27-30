@@ -8,10 +8,15 @@ import Button from "@mui/material/Button";
 const BreadProductsUser = () => {
     const {currProds} = useAppSelector(state => state.products)
     return (
-        <Grid container>
+        <Grid container spacing={2}>
             {currProds.map((item:ProductType) =>
-                <Grid key={item.id!} size={{xs:12, sm: 6, md: 3}}>
-                    <Card sx={{ maxWidth: 345 }}>
+                <Grid key={item.id!}  size={{xs:12, sm: 6, md: 3}}>
+                    <Card sx={{ maxWidth: 345,
+                        height: '100%',
+                        display:"flex",
+                        flexDirection:"column",
+                        justifyContent:"space-between"
+                    }}>
                         <CardMedia
                             sx={{ height: 140 }}
                             image={"/images/"+item.img}
@@ -26,10 +31,24 @@ const BreadProductsUser = () => {
                                 species, ranging across all continents except Antarctica
                             </Typography>
                         </CardContent>
-                        <CardActions>
-                            <Button size="small">+</Button>
-                            <Typography>0</Typography>
-                            <Button size="small">-</Button>
+                        <CardActions sx={{
+                            justifyContent:"space-around",
+                        }}>
+                            <Button size="small" variant={"outlined"} sx={{
+                                fontSize: "1.2rem",
+                                padding: "0 20px",
+                                color:"black",
+                                borderColor: "black",
+                            }}>+</Button>
+                            <Typography sx={{
+                                fontSize: "1.2rem",
+                            }}>0</Typography>
+                            <Button size="small"variant={"outlined"} sx={{
+                                fontSize: "1.2rem",
+                                color:"black",
+                                borderColor: "black",
+                                padding: "0 20px"
+                            }}>-</Button>
                         </CardActions>
                     </Card>
                 </Grid>

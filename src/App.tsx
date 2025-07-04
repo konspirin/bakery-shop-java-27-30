@@ -16,11 +16,13 @@ import {useEffect} from "react";
 import NavigatorDeskTop from "./components/navigation/NavigatorDeskTop.tsx";
 import Login from "./components/servicePages/Login.tsx";
 import Logout from "./components/servicePages/Logout.tsx";
-import {ProductType, Roles, type RouteType} from "./utils/shop-types.ts";
+import {ProductType, Roles, type RouteType, ShopCartProdType} from "./utils/shop-types.ts";
 import {useAppDispatch, useAppSelector} from "./redux/hooks.ts";
 import Registration from "./components/servicePages/Registration.tsx";
 import {getProducts} from "./firebase/firebaseDBService.ts";
 import {prodsUpd} from "./redux/slices/productSlice.ts";
+import {resetCart, setCart} from "./redux/slices/cartSlice.ts";
+import {getCartProducts} from "./firebase/firebaseCartService.ts";
 
 function App() {
     const location = useLocation();
@@ -36,6 +38,18 @@ function App() {
             next: (prods: ProductType[]) => {dispatch(prodsUpd(prods))}
         })
         return () => {subscrition.unsubscribe()}
+    }, []);
+
+    useEffect(() => {
+        if(!authUser || authUser.email.includes('admin'))
+            dispatch(resetCart());
+        else{
+            const subscribtion = getCartProducts(`${authUser.email}_collection`);
+            subscribtion.subscribe({
+                next: (cartProducts: ShopCartProdType[])=> dispatch(setCart(cartProducts))
+            })
+        }
+
     }, []);
 
     const predicate = (item:RouteType) => {

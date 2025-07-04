@@ -3,10 +3,14 @@ import {Card, CardActions, CardContent, CardMedia, Grid} from "@mui/material";
 import {ProductType} from "../../utils/shop-types.ts";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
+import {useNavigate} from "react-router-dom";
+import {addProductUnitToCart} from "../../firebase/firebaseCartService.ts";
 
 
 const BreadProductsUser = () => {
     const {currProds} = useAppSelector(state => state.products)
+    const navigate = useNavigate();
+    const {authUser} = useAppSelector(state => state.auth)
     return (
         <Grid container spacing={2}>
             {currProds.map((item:ProductType) =>
@@ -39,7 +43,12 @@ const BreadProductsUser = () => {
                                 padding: "0 20px",
                                 color:"black",
                                 borderColor: "black",
-                            }}>+</Button>
+                            }}
+                            onClick={async () => {
+                                if (!authUser) navigate('/login')
+                                await addProductUnitToCart(`${authUser!.email}_collection`, item.id!)
+                            }}
+                            >+</Button>
                             <Typography sx={{
                                 fontSize: "1.2rem",
                             }}>0</Typography>

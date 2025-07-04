@@ -50,7 +50,7 @@ function App() {
             })
         }
 
-    }, []);
+    }, [authUser]);
 
     const predicate = (item:RouteType) => {
         return (

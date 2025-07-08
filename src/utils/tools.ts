@@ -24,3 +24,7 @@ export const echo = (data:string)=> {
         }, 1000)
     })
 }
+
+export  const getImageURI =(value:string) => {
+    return value.startsWith('http')? value : '/images/'+value
+}

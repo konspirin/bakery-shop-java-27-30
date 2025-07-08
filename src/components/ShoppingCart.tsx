@@ -4,6 +4,7 @@ import {removeProductFromCart} from "../firebase/firebaseCartService.ts";
 import {DataGrid, GridActionsCellItem, GridColDef} from "@mui/x-data-grid";
 import {Avatar, Box} from "@mui/material";
 import {RemoveIcon} from "./templates/CustomIcons.tsx";
+import {getImageURI} from "../utils/tools.ts";
 
 
 const ShoppingCart = () => {
@@ -30,7 +31,7 @@ const ShoppingCart = () => {
         { field: 'amount', headerName: 'Amount in ILS', width: 90, flex: 0.4 },
         { field: 'img', width: 200,flex:0.5, renderCell: (params) => {
                 return(
-                    <Avatar src={'/images/' + params.value}/>
+                    <Avatar src={getImageURI(params.value)}/>
                 )
             } },
         {field:'actions', type:'actions', flex:0.3,

@@ -13,10 +13,17 @@ import {useAppSelector} from "../../redux/hooks.ts";
 import {DataGrid, GridActionsCellItem, GridColDef} from "@mui/x-data-grid";
 import {Avatar, Box} from "@mui/material";
 import {RemoveIcon} from "../templates/CustomIcons.tsx";
-import {removeProduct} from "../../firebase/firebaseDBService.ts";
+import {addProduct, removeProduct, updateProduct} from "../../firebase/firebaseDBService.ts";
+import {getImageURI} from "../../utils/tools.ts";
+import Button from "@mui/material/Button";
+import {useState} from "react";
+import AddProductForm from "../AddProductForm.tsx";
+import {ProductType} from "../../utils/shop-types.ts";
 
 const BreadProductsAdmin = () => {
     const {currProds} = useAppSelector(state => state.products)
+    const [displayForm, setDisplayForm] = useState(false);
+
     const rows = currProds;
     const columns : GridColDef<(typeof rows)[number]>[] = [
         { field: 'id', headerName: 'ID', width: 90, flex:0.3 },
@@ -26,9 +33,11 @@ const BreadProductsAdmin = () => {
         { field: 'cost', headerName: 'Price in ILS', width: 90, flex: 0.4, editable:true },
         { field: 'img', width: 200,flex:0.5, renderCell: (params) => {
             return(
-                <Avatar src={'/images/' + params.value}/>
+                //<Avatar src={'/images/' + params.value}/>
+                <Avatar src={getImageURI(params.value)}/>
             )
-            } },
+            },
+            editable:true},
         { field: 'actions', type: 'actions', flex: 0.3, getActions: (params) => [
             <GridActionsCellItem label={'remove'} icon={<RemoveIcon/>}
                                  onClick={async () => {
@@ -38,9 +47,31 @@ const BreadProductsAdmin = () => {
             ]},
     ]
 
+    function addProductHandler() {
+        setDisplayForm(true)
+    }
+
     return (
-        <Box>
-            <DataGrid columns={columns} rows={rows}/>
+        <Box sx={{width:"90vw", height:"80vh", margin:"0 auto"}}>
+            <DataGrid columns={columns} rows={rows}
+            processRowUpdate={async (newRow) => {
+                if (newRow.cost <= 0 || newRow.cost > 1000) throw ('Wrong data! Cost must be positive!');
+                await updateProduct(newRow);
+                return newRow;
+            }}
+                      onProcessRowUpdateError={(err) => {
+                          alert(err + " Changes not saved")
+                      }}
+            />
+            <Button variant={'outlined'}
+            onClick={addProductHandler}
+            >New Product</Button>
+            {displayForm &&
+            <AddProductForm submitFn={async (product: ProductType) => {
+                await addProduct(product);
+                setDisplayForm(false)
+            }}/>
+            }
         </Box>
     );
 };

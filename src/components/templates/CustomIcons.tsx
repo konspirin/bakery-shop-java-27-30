@@ -1,11 +1,16 @@
 
 import SvgIcon from '@mui/material/SvgIcon';
-import {Avatar} from "@mui/material";
+// import {Avatar} from "@mui/material";
 
 
 
 export const RemoveIcon = () => {
-    return <Avatar src={'/images/trash-can.png'}/>
+    // return <Avatar src={'/images/trash-can.png'}/>
+    return <img src="/images/trash-can.png" alt="Delete" style={{
+        width:'20px',
+        height:'20px',
+        opacity:'0.5'
+    }}/>
 };
 
 
